@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6" id="cardShadow">
+      <h3 class="text-uppercase text-bold text-center">Login</h3>
+      <hr />
+      {% include 'messages.html' %}
+      <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+      <div class="emailField">
+        <i class="fa fa-user fa-2x iTag" aria-hidden="true"></i>
+        {{form.username}}
+      </div>
+      <div class="passwordField">
+        <i class="fa fa-lock fa-2x iTag" aria-hidden="true"></i>
+        {{form.password}}
+        <i
+          class="fa fa-eye fa-x"
+          aria-hidden="true"
+          style="float: right; bottom: 24px; position: relative; color: blue"
+          onclick="showPassword()"
+        ></i> 
+      </div>
+      <input type="submit" value="Login" class="btn btn-primary button" />
+    </form>
+      <div>
+        <a href="{% url 'reset_password' %}" class="float-right"
+          >Forgot Password ?</a
+        >
+      </div>
+      <p class="text-center mt-5">
+        <a href="{% url 'signup' %}">Create A New Account.</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

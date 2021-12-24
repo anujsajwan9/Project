@@ -1,0 +1,251 @@
+/*HERO CSS*/
+
+.hero-banner .hero-img{
+    width: 560px ;
+    height: 839px;
+    margin-top: -250px;
+    margin-left: 90px;          
+ }
+
+ .hero-banner .hero-img img{
+
+     width: 100%;
+     height: 100%;
+
+ }
+
+ .hero-banner{
+     height: 100%;
+ }
+
+.hero-banner .heading{
+
+    margin-top:90px;
+    font-size: 5.5rem;
+    font-weight: 900;
+}
+
+.world{
+    position: relative;
+    top:42px;
+    padding: 0px;
+}
+
+.sign-up-button{
+  width: 200px;
+  font-weight: bold;
+  font-size: 2.3rem;
+  margin-top:100px;
+  margin-left: 225px;
+}
+
+/*END OF THE HERO CSS*/
+
+
+/* GLOBEL CSS */
+
+
+.btn.focus, .btn:focus{
+	outline: none;
+	box-shadow:none !important;
+	
+}
+
+/*END OF THE GOLOBEL CSS  */
+
+/*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
+
+/* GLOBEL CSS */
+
+
+.btn.focus, .btn:focus{
+	outline: none;
+	box-shadow:none !important;
+	
+}
+
+/*END OF THE GOLOBEL CSS  */
+
+/*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+ /* HEADER CSS */
+ 
+   
+   .header-area .container-fluid{
+    height: 70px;
+   }
+
+  .header-area {
+    position: sticky;
+    top: 0;
+    background-color:black;
+    z-index: 3020;    
+    width: 100%;
+   }
+  
+   .header-area .navbar {
+    background: transparent;
+    padding: 0px;
+    border: 0px;
+    border-radius: 0px; 
+   }
+
+   .header-area .navbar .nav .nav-item {
+    margin-right: 30px; 
+   }
+
+   .header-area .navbar .nav .nav-item .nav-link {
+    font: 487 16px/120px "Roboto", sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 0px;
+    font-weight: bold;
+    display: inline-block; 
+   }
+        
+
+  .header-area .container-fluid .logo_h {
+    font: 500 12px/120px "Roboto", sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 0px;
+    font-size: 25px;
+   }
+
+    .header-area .create-project-button{
+
+ 	  background-color: #0057ff;
+ 	  text-transform: none;
+ 	  color: white;
+ 	  border-radius: 20px;
+    }
+
+
+    .header-area .search{
+      margin-left:-60px;
+	 }
+
+   .header-area .search input[type="text"]{
+      width: 250px;
+      height: 35px;
+      border-radius: 11px;
+      box-shadow: 3px 4px 3px 4px #f8f8ff inset;
+      border: none;
+      outline: none;
+      padding: 20px;
+     }
+     
+	.header-area .search-button{
+     cursor: pointer;
+     position: relative;
+     right: 45px;
+     top:2px;
+     border: none;
+     background:transparent;
+     outline: none;
+    }
+
+	.header-area .search-button i{
+        color: #0057ff;
+    }
+	
+
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+ /* FOOTER CSS */
+ 
+ 
+ .site-footer{ 
+    /* background-color:#26272b; */
+    background-color:black;
+    padding:45px 0 20px;
+    font-size:15px;
+    line-height:24px;
+    color:#737373;
+    margin-top: 200px;
+   }
+ 
+  .site-footer hr{
+    border-top-color:#bbb;
+    opacity:0.5
+   }
+ 
+  .site-footer hr.small{
+    margin:20px 0
+   }
+ 
+  .site-footer h6{
+    color:#fff;
+    font-size:16px;
+    text-transform:uppercase;
+    margin-top:5px;
+    letter-spacing:2px
+   }
+ 
+  .site-footer a{
+    color:#737373;
+   }
+ 
+  .site-footer a:hover{
+    color:#3366cc;
+    text-decoration:none;
+   }
+ 
+  .footer-links{
+    padding-left:0;
+    list-style:none
+   }
+ 
+  .footer-links li{
+    display:block
+   }
+ 
+  .footer-links a{
+    color:#737373
+   }
+ 
+  .footer-links a:active,.footer-links a:focus,.footer-links a:hover{
+    color:#3366cc;
+    text-decoration:none;
+   }
+ 
+  .footer-links.inline li{
+    display:inline-block
+   }
+  
+  .copyright-text{
+    margin:0
+  }
+ 
+ /* END OF THE FOOTER CSS */
+ 
+ /* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX */
+
+
+
+ 
+/* Load More */
+
+.loadMore {
+  width: 200px;
+  color: #fff;
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background-color: black;
+ }
+
+ .loadMore:hover {
+   color: blue;
+  background-color: #fff;
+  border: 1px solid blue;
+  text-decoration: none;
+ }
+
+

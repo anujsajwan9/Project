@@ -1,0 +1,160 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+
+<!-- HERO SECTION -->
+<div class="container-fluid" style="background-color: black">
+  <div class="row hero-banner pt-5">
+    <div class="col-6">
+      <h1 class="text-uppercase text-white text-center heading">
+        Show Your Skills To The
+        <span class="bg-success world">World</span>
+      </h1>
+      <a
+        href="{% url 'signup' %}"
+        role="button"
+        class="btn sign-up-button btn-outline-primary"
+        style="margin-bottom: 3em"
+      >
+        SIGN UP</a
+      >
+    </div>
+
+    <div class="col-6">
+      <div class="hero-img">
+        <img src="{% static 'img/hero-img.svg' %}" />
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END OF THE HERO SECTION -->
+
+<!-- PROJECTS AREA -->
+<section>
+  <!-- Project Categories -->
+  <div class="container-fluid">
+    <div class="container my-4">
+      <h2
+        class="text-center font-weight-bold text-uppercase"
+        style="margin-bottom: 1em"
+      >
+        Our Project Category
+      </h2>
+      <!--Carousel Wrapper-->
+      <div
+        id="multi-item-example"
+        class="carousel sr-slider"
+        data-type="carousel"
+      >
+        <!--Controls-->
+        <div class="controls-top">
+          <a
+            class="btn-floating prevBtn"
+            href="#multi-item-example"
+            data-slide="prev"
+            ><i class="fa fa-chevron-left"></i
+          ></a>
+          <a
+            class="btn-floating nextBtn"
+            href="#multi-item-example"
+            data-slide="next"
+            ><i class="fa fa-chevron-right"></i
+          ></a>
+        </div>
+        <!--/.Controls-->
+
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+          {% for category in categories%}
+          <!-- Shows first four objects -->
+          <div
+            class="carousel-item{% if forloop.counter == 1 %} active{% endif %}"
+          >
+            <div class="text-center">
+              <img
+                src="{{category.image.url}}"
+                style="height: 300px; width: 500px; object-fit: cover"
+              />
+              <a
+                href="categoryPage/{{category.id}}"
+                class="font-italic"
+                style="
+                  display: block;
+                  position: relative;
+                  bottom: 30px;
+                  font-weight: bold;
+                  text-decoration: none;
+                  font-size: 18px;
+                  background: rgba(0, 0, 0, 0.45);
+                  color: white;
+                  width: 45%;
+                  margin-left: 17em;
+                "
+                >{{category.name}}</a
+              >
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!--/.Slides-->
+      </div>
+      <!--/.Carousel Wrapper-->
+    </div>
+  </div>
+  <!-- End Category -->
+
+  <!-- Latest Projects -->
+  <div class="container mt-5">
+    <h2
+      class="text-center font-weight-bold text-uppercase"
+      style="margin-bottom: 1em"
+    >
+      Our Latest Project
+    </h2>
+    <!-- PROJECT ROW -->
+    <div class="row">
+      <!-- PROJECT COLUMN -->
+      {% for project in projects %}
+      <div class="col-md-3 project-inside mb-3">
+        <div class="card p-2" style="-webkit-box-shadow: 1px 14px 21px -8px rgba(0,0,0,0.75);">
+        <div class="project-img">
+            <img src="{{project.image.url}}" class="img-fluid project-img" /> 
+        </div>
+        <!-- PROJECT NAME -->
+        <div class="project-name">
+          <span>{{project.name}}</span>
+        </div>
+        <!-- END OF THE PROJECT NAME -->
+        <!-- END OF THE PROJECT BOTTOM -->
+        <div class="project-bottom">
+            {% for extra in extra %}
+              {% if project.user == extra.user %}
+                <img
+                  src="{{extra.image.url}}"
+                  class="user-img"
+                />
+              {% endif %}
+          {% endfor %}
+            <span class="display-name text-capitalize font-weight-bold">
+              {{project.user.first_name}}&nbsp;{{project.user.last_name}}</span
+            >
+          <!-- PROJECT LIKE,COMMENT -->
+          <div class="like-comment">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+            <span>5</span>
+            <i class="fa fa-comments" aria-hidden="true"></i>
+            <span>6</span>
+          </div>
+          <!-- END OF THE PROJECT LIKE,COMMENT -->
+        </div>
+        <!-- END OF THE PROJECT BOTTOM -->
+      </div>
+      </div>
+      {% endfor %}
+      <!-- END OF THE  PROJECT COLUMN -->
+    </div>
+    <!-- END OF THE PROJECT ROW -->
+  </div>
+</section>
+<!-- END OF THE PROJECT AREA -->
+
+{% endblock %}

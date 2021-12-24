@@ -1,0 +1,119 @@
+{% extends 'feed/feed.html' %}
+{% load static %} {% block feed %}
+<style>
+  label{
+    font-weight: bold;
+  }
+</style>
+  <div class="card">
+    <div class="card-body p-3">
+      <div class="row">
+        <form method="post" style="display: flex;" enctype="multipart/form-data">
+          {% csrf_token %}
+        <div class="col-3" style="padding-top: 7rem">
+          {% if extra.image %}
+          <img
+          src="{{extra.image.url}}"
+          class="mx-auto px-auto d-block rounded-circle"
+          height="200"
+          width="200"
+        />
+          {% else %}
+          <img
+          src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+          class="mx-auto px-auto d-block rounded-circle"
+          height="200"
+          width="200"
+        />
+          {% endif %}
+          {{forms.image}}
+        </div>
+        <div class="col-1"></div>
+        <div class="col-8">
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="first_name">First Name</label>
+                <input
+                  type="text"
+                  name="first_name"
+                  id=""
+                  class="form-control"
+                  value="{{form.first_name.value}}"
+                />
+              </div>
+
+              <div class="form-group col-6">
+                <label for="lastname">Last Name</label>
+                <input
+                  type="text"
+                  name="last_name"
+                  id="l_name"
+                  class="form-control"
+                  value="{{form.last_name.value}}"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="username">Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  id="u_name"
+                  class="form-control"
+                  value="{{form.username.value}}"
+                  readonly
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="bio">Bio</label>
+                <input type="text" name="bio" id="bio" class="form-control" value="{{forms.bio.value}}" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="profession">Profession</label>
+                <input
+                  type="text"
+                  name="profession"
+                  id="profession"
+                  class="form-control"
+                  value="{{forms.profession.value}}"
+                />
+              </div>
+
+              <div class="form-group col-6">
+                <label for="phone_number">Phone Number</label>
+                <input
+                  type="text"
+                  name="phone_number"
+                  id="phone_number"
+                  class="form-control"
+                  value="{{forms.phone_number.value}}"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email_id"
+                  class="form-control"
+                  value="{{form.email.value}}"
+                />
+              </div>
+            </div>
+            <div class="text-center">
+              <input type="submit" value="Update" class="btn btn-secondary" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %} -->

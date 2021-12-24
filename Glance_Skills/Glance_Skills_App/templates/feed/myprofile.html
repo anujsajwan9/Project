@@ -1,0 +1,293 @@
+{% extends 'base.html' %}{% load static %}{% load custom_tags %}  {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/comment.css' %}" />
+<!-- PROFILE HEADER -->
+<section>
+  <!-- PROFILE HEADER CONTAINER -->
+  <div class="container-fluid profile-header lighten-4">
+    <!-- PROFILE HEADER ROW -->
+    <div class="row mt-2 shadow">
+      <!-- PROFILE HEADER COLUMN -->
+      <div class="col-9 text-center">
+        <h1 class="profile-text text-center p-3 text-capitalize">
+          {{user.first_name}}'s Profile
+        </h1>
+      </div>
+      <!-- END OF THE PROFILE HEADER COLUMN  -->
+      <!-- PROFILE HEADER COLUMN (total project) -->
+      <div class="col-3 p-2">
+        <div
+          class="
+            total-projects
+            text-center
+            card card-body
+            text-uppercase
+            shadow
+          "
+        >
+          <h3 class="my-auto">Total Project :</h3>
+        </div>
+      </div>
+      <!-- END OF THE PROFILE HEADER (total project) -->
+    </div>
+    <!-- END OF THE PROFILE HADER ROW -->
+  </div>
+  <!-- END OF THE PROFILE HEADER CONTAINER -->
+</section>
+<!-- END OF THE PROFILE HEADER -->
+
+<section>
+  <div class="conatiner-fluid">
+    <div class="row mt-5">
+      <div class="col-4">
+        <!-- PROFILE CARD -->
+        <div class="card shadow p-4 mb-4 bg-white rounded">
+          <img
+            src="{{extradetails.image.url}}"
+            class="mx-auto d-block rounded-circle"
+            style="border-width: 6px"
+            width="200"
+            height="200"
+          />
+
+          <!-- PROFILE CARD BODY -->
+          <div class="card-body">
+            <h3 class="card-title mb-2 font-weight-bold text-center">
+              {{extradetails.user.first_name}}&nbsp;{{extradetails.user.last_name}}
+            </h3>
+
+            <!-- PROFILE CARD TEXT -->
+            <div class="card-text">
+              <p class="text-center font-italic text-success">
+                {{extradetails.bio}}
+              </p>
+              <div class="row pt-2">
+                <div class="col-4 font-weight-bold">
+                  <p>Name</p>
+                  <p>Email</p>
+                  <p>Mobile</p>
+                  <p>Profession</p>
+                </div>
+                <div class="col">
+                  <p class="text-capitalize">
+                    {{extradetails.user.first_name}}&nbsp;{{extradetails.user.last_name}}
+                  </p>
+                  <p>{{extradetails.user.email}}</p>
+                  <p>{{extradetails.phone_number}}</p>
+                  <p class="text-capitalize">{{extradetails.profession}}</p>
+                </div>
+              </div>
+
+              <!-- EDIT BUTTON ROW -->
+              <div class="row">
+                <!-- EDIT BUTTON OF PROFILE  -->
+                <div class="col-12 text-center mt-1">
+                  <c:if test="${ username eq loggedInUser.getUsername()}">
+                    <a
+                      role="botton"
+                      class="btn btn-dark text-white"
+                      href="{% url 'editprofile' %}"
+                      >Edit Profile</a
+                    >
+                  </c:if>
+                </div>
+                <!-- END OF THE EDIT BUTTON OF PROFILE  -->
+              </div>
+              <!-- END OF THE EDIT BUTTON ROW -->
+            </div>
+            <!-- END OF THE PROFILE CARD TEXT  -->
+          </div>
+          <!-- END OF THE PROFILE CARD BODY -->
+        </div>
+        <!-- END OF THE PROFILE CARD -->
+        <!-- END OF THE PROFILE CARD BODY -->
+      </div>
+      <!-- END OF THE PROFILE CARD -->
+      <!-- END OF THE PROFILE COLUMN -->
+      {% for project in projects %} {% if forloop.counter == 1 %}
+      <div class="col-7 mb-5">
+        {% else %}
+        <div class="col-7 offset-4 mb-3">
+          {% endif %}
+
+          <!-- PROFILE CARD BODY -->
+          <div
+            class="card project"
+            style="
+              width: 650px;
+              -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.75);
+            "
+          >
+            <!-- PROJECT CARD HEADER -->
+            <div class="card-header p-header">
+              <a href="#" role="button">
+                <img
+                  src="{{extradetails.image.url}}"
+                  class="rounded-circle"
+                  width="50"
+                  height="50"
+                />
+                <span class="font-weight-bold p_u_name">{{user.username}}</span>
+              </a>
+              <span>
+                <a
+                  role="button"
+                  class="btn btn-danger float-right"
+                  onclick="return confirm('Are you really want to delete')"
+                  href="#"
+                  >Delete</a
+                >
+                <a
+                  role="button"
+                  class="btn btn-primary float-right mr-3"
+                  href="{% url 'editprofile' %}"
+                  >Edit</a
+                >
+              </span>
+            </div>
+            <!-- END OF THE PROJECT CARD HEADER -->
+            {% if project.image %}
+            <div class="text-center">
+              <img
+                class="img-fluid"
+                src="{{project.image.url}}"
+                style="padding: 5px"
+                alt="Image"
+              />
+            </div>
+            {% endif %}
+            <div class="ml-3 p-0">
+              <hr />
+              <div>
+                <form
+                  action="{% url 'like_post_profile' project.pk %}"
+                  method="post"
+                >
+                  {% csrf_token %} {% if project not in liked_project %}
+                  <button
+                    class="fa fa-thumbs-up fa-2x border-0 bg-white float-left"
+                    aria-hidden="true"
+                    type="submit"
+                    name="project_id"
+                    value="{{project.id}}"
+                  ></button>
+                  {% else %}
+                  <button
+                    class="fa fa-thumbs-up fa-2x border-0 bg-white float-left"
+                    style="color: blue"
+                    aria-hidden="true"
+                    type="submit"
+                    name="project_id"
+                    value="{{project.id}}"
+                  ></button>
+                  {% endif %}
+                </form>
+                <i
+                  class="fa fa-comment fa-2x pl-2"
+                  style="color: blue"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  class="fa fa-share fa-2x pl-2"
+                  style="color: blue"
+                  aria-hidden="true"
+                ></i>
+                <br />
+                <small>likes {{project.likes.count}} comments {{comment.project | is_upper:project.id}} </small>
+                <p>
+                  <strong>{{project.project_name}}</strong><br /><span
+                    >{{project.short_description}}</span
+                  >
+                </p>
+              </div>
+            </div>
+            <!-- PROJECT CARD FOOTER -->
+            <div class="card-footer" style="background-color: white">
+              <div class="comment-box-wrapper">
+                {% for comment in project.comments.all %} 
+                {% if project.project_name == comment.project.project_name %}
+                <div class="comment-box mb-2">
+                  <img
+                    src="{{comment.user.extendeduser.image.url}}"
+                    class="commenter-image"
+                    alt="Image"
+                  />
+                  <div class="comment-content" style="width: 100%">
+                    <div class="commenter-head">
+                      <span class="commenter-name"
+                        ><a href="" class="font-weight-bold"
+                          >{{comment.user.first_name}}</a
+                        ></span
+                      >
+                      <span class="comment-date"
+                        ><i class="far fa-clock"></i
+                      ></span>
+                    </div>
+                    <div class="comment-body">
+                      <span class="comment">{{comment.comments}}</span>
+                    </div>
+                    <div class="comment-footer">
+                      <span class="comment-reply"
+                        ><a
+                          href="#"
+                          class="comment-action font-weight-bold"
+                          style="float: right; font-size: 12px; padding: 6px"
+                          >Reply</a
+                        ></span
+                      >
+                      {% if comment.user.username == extradetails.user.username %}
+                      <span
+                        class="badge badge-danger"
+                        style="float: right; font-size: 12px; padding: 6px"
+                        >Delete</span
+                      >
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                {% endif %} {% endfor %}
+              </div>
+              <hr />
+              <!-- PROJECT COMMENT ->COMMENT BOX -->
+              <!-- COMMENT BOX -->
+              <div class="row">
+                <hr />
+                <div class="col-1">
+                  <img
+                    src="{{extradetails.image.url}}"
+                    class="commenter-image"
+                    alt="commenter_image"
+                  />
+                </div>
+                <div class="col-11">
+                  <form method="post" action="{% url 'comment_project' project.pk %}">
+                    {% csrf_token %}
+                    <textarea
+                      class="comment-area"
+                      name="user_comment"
+                      placeholder="Write your comment here"
+                    ></textarea>
+                    <button
+                      type="submit"
+                      class="btn comment-btn"
+                      name="project_id"
+                      value="{{project.id}}"
+                    >
+                      Post
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- END OF THE COMMENT BOX -->
+            <!-- END OF THE PROJECT COMMENT <- COMMENT BOX -->
+          </div>
+          <!-- END OF THE PROJECT CARD FOOTER -->
+        </div>
+        <!--END OF THE  PROJECT CARD -->
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

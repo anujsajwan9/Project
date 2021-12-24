@@ -1,0 +1,104 @@
+<nav
+  class="navbar navbar-expand-lg navbar-dark sticky-top"
+  style="background-color: black"
+>
+  <a
+    class="navbar-brand"
+    href="#"
+    style="
+      border: 2px solid white;
+      color: yellow;
+      font-weight: bold;
+      padding: 6px;
+      text-transform: uppercase;
+    "
+    >GLANCE YOUR SKILLS</a
+  >
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul
+      class="
+        navbar-nav
+        mx-auto
+        text-uppercase text-bold text-white
+        font-weight-bold
+      "
+    >
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}"
+          >Home <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">About Us</a>
+      </li>
+      <li class="nav-item dropdown active">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          onclick="fun1()"
+        >
+          Category
+        </a>
+        <ul
+          class="dropdown-menu"
+          aria-labelledby="navbarScrollingDropdown"
+          id="drop"
+        ></ul>
+      </li>
+      {% if user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'feed' %}">Feed</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'myprofile' %}">Profile</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" role="button" href="{% url 'createproject' %}">
+          <span class="btn btn-primary rounded-pill font-weight-bold"
+            >Create a Project</span
+          ></a
+        >
+      </li>
+      </ul>
+      <form class="form-inline my-4 my-lg-0">
+        <input
+          class="form-control rounded-pill"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button class="btn" style="position: relative; right: 54px">
+          <i class="fa fa-search fa-2x text-primary"></i>
+        </button>
+      </form>
+      {% else %}
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'login' %}">LogIN</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'signup' %}">SignUp</a>
+      </li>
+    </ul>
+      {% endif %}
+  </div>
+</nav>

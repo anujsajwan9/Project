@@ -1,0 +1,32 @@
+{% extends 'base.html' %}{% load static %} 
+{% block content %}
+<div class="container-fluid mt-3">
+  <div class="row">
+    <!-- left side section My Profile -->
+    <div class="col-md-3">
+      <div class="text-center">
+      <img class="img-fluid rounded-circle" style="height: 250px;"  src="{{user.extendeduser.image.url}}" alt="Image"/>
+       <p><strong>{{user.first_name}}</strong></p> 
+       <p style="color: blue;">{{extra.profession}}</p>    
+      </div>
+       <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action" id="list-profile-list active" href="{% url 'feed' %}" role="tab" aria-controls="profile">Feed</a>
+        <a class="list-group-item list-group-item-action" id="list-messages-list" href="{% url 'editprofile' %}" role="tab" aria-controls="messages">Account Settings</a>
+        <a class="list-group-item list-group-item-action" id="list-settings-list" href="{% url 'logout' %}" role="tab" aria-controls="settings">Logout</a>
+      </div>
+    </div>
+    <!--End LEft section  -->
+    <div class="col-9">
+        {% block feed %}
+
+        {% endblock %}
+    </div>
+      <!--End Category-->
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,12 @@
+.loginText{
+border: none;
+border-radius: 0px;
+border-bottom: 2px solid black;
+background: transparent;
+padding-left: 50px;
+box-shadow: none !important;
+}
+.iTag{
+    position: relative;
+    top:35px;
+}

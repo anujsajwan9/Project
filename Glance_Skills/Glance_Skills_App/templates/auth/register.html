@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6"  id="cardShadow">
+            <h3 class="text-uppercase text-bold text-center">Signup</h3>
+            <hr/>
+            {% if form.errors %}
+            <div class="alert alert-sm  alert-danger">
+                {{errors}}
+            </div>
+            {% endif %}
+<!-- SIGN-UP FORM -->
+<form action="{% url 'signup' %}" method="post">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-6 ">
+            <i class="fa fa-user-circle-o fa-2x iTag" aria-hidden="true"></i>
+            {{form.first_name}}
+        </div>
+
+        <div class="form-group col-6 ">
+            <i></i>
+            {{form.last_name}}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-12">
+            <i class="fa fa-user fa-2x iTag" aria-hidden="true"></i> 
+            {{form.username}}
+         </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-12">
+            <i class="fa fa-lock fa-2x iTag" aria-hidden="true"></i> 
+            {{form.password1}}
+            <i class="fa fa-eye fa-x"  style="float: right;bottom: 24px;position: relative;color: blue;" aria-hidden="true" onclick="showPassword()"></i>
+        </div>
+    </div>
+
+     <div class="form-row">
+        <div class="form-group col-12">
+            <i class="fa fa-envelope fa-2x iTag" aria-hidden="true"></i> 
+            {{form.email}}
+        </div>
+    </div> 
+
+    <div class="form-row">
+        <div class="form-group col-12">
+            <i class="fa fa-phone fa-2x iTag" aria-hidden="true"></i> 
+            {{forms.phone_number}}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary button">Sign
+        Up</button>
+    
+</form>
+<!-- END OF THE SIGN-UP FORM -->
+
+<p class="text-right mt-1 text-info">
+        <a href="{% url 'login' %}">Already have account?</a>
+    </p>
+   
+          </div>
+      </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
