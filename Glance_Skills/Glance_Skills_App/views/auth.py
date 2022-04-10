@@ -8,6 +8,7 @@ from Glance_Skills_App.models import extendeduser
 from Glance_Skills_App.forms import LoginForm,SignupForm,UserEditForm
 
 class LoginView(View):
+    print('hello')
     def get(self,request):
         form = LoginForm()
         context = {
