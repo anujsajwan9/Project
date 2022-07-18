@@ -260,7 +260,9 @@
                   />
                 </div>
                 <div class="col-11">
-                  <form method="post" action="{% url 'comment_project' project.pk %}">
+                                  <form method="post" >
+
+                  {% comment %} <form method="post" action="{% url 'comment_project' project.pk %}"> {% endcomment %}
                     {% csrf_token %}
                     <textarea
                       class="comment-area"

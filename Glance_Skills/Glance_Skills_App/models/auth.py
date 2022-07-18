@@ -10,7 +10,7 @@ class extendeduser(models.Model):
     age = models.IntegerField(null=True,blank=True)
     profession = models.CharField(null=True,max_length=50)
     bio = models.CharField(null=True,max_length=256)
-    image = models.ImageField(upload_to='images/user_images/',null=True)
+    image = models.ImageField(upload_to='images/user_images/',null=True , default = "/images/user_images/defaultuser.jpeg")
 
     def __str__(self):
         return self.user.username
