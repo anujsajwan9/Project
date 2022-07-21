@@ -38,3 +38,16 @@ class Projects_Comment(models.Model):
     created_by = models.DateTimeField(auto_created=timezone.now(),auto_now_add=True)
     updated_by = models.DateTimeField(null=True,blank=True)
 
+    
+    def __str__(self):
+        return  str(self.comments)
+
+
+class Project_CommentsReply(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    comment = models.ForeignKey(Projects_Comment ,related_name="reply" ,on_delete=models.CASCADE)
+    reply = models.TextField(max_length=2000 , null =True , blank=False)
+
+    def __str__(self):
+        return  str(self.comment)
+    

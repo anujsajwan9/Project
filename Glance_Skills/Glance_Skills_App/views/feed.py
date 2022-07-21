@@ -1,3 +1,4 @@
+# from Glance_Skills.Glance_Skills_App.models.projects import Project_CommentsReply
 from Glance_Skills_App.models import projects
 from Glance_Skills_App.models.projects import ProjectCategory, Projects_Comment
 from abc import abstractmethod
@@ -21,6 +22,7 @@ class FeedPage(View):
         project = Project.objects.all()
         categories =  ProjectCategory.objects.all()
         liked_project = Project.objects.filter(likes=request.user)
+        # reply =  Project_CommentsReply.objects.filter(comment = )
         
         context = {
             'projects':project,
@@ -28,6 +30,7 @@ class FeedPage(View):
             'extra':extradetail_user,
             'liked_project':liked_project,
             'categories':categories
+            
         }
         return render(request,'feed/feed_main.html',context)
 
