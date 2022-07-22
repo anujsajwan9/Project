@@ -59,7 +59,7 @@ class SignupForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control loginText','placeholder':'Enter Your Password','id':'password'}))
+    # password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control loginText','placeholder':'Enter Your Password','id':'password'}))
     username = forms.EmailField(max_length=20,label='Email Address',required=True,widget=forms.EmailInput(attrs={'class':'form-control loginText','placeholder':'Enter Your Email ID '}))
 
     def clean(self):
