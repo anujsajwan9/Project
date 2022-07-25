@@ -74,6 +74,7 @@ class MyProfile(View):
         context = {
             'extradetails':extradetails,
             'projects':projects,
+            'project_counts':projects.count(),
             'liked_project':liked_project,
         }
         return render(request,'feed/myprofile.html',context)
