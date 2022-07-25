@@ -19,7 +19,7 @@ class FeedPage(View):
     def get(self,request):
         user = User.objects.get(username=request.user)
         extradetail_user = extendeduser.objects.get(user=user) 
-        project = Project.objects.all()
+        project = Project.objects.all().exclude(user=user)
         categories =  ProjectCategory.objects.all()
         liked_project = Project.objects.filter(likes=request.user)
         # reply =  Project_CommentsReply.objects.filter(comment = )

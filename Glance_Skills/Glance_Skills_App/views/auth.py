@@ -34,7 +34,7 @@ class RegisterView(View):
     
     def post(self,request):
         form = SignupForm(request.POST)
-        print(form.error_messages)
+        forms = UserEditForm(request.POST)
         if form.is_valid():
             user = form.save()
             forms = extendeduser.objects.create(user=user,phone_number=request.POST['phone_number'])

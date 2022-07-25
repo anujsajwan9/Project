@@ -52,7 +52,8 @@ class SignupForm(UserCreationForm):
             user = User.objects.get(email=email)
         except:
             return email
-        if user is  None:
+            
+        if user is not None:
             raise ValidationError("User Already Exists !!")    
 
 
