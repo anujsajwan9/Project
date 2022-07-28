@@ -144,6 +144,9 @@
                   >Edit</a
                 >
               </span>
+              <div class="text-muted ms-4">&nbsp;
+                <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{project.created_by | timesince}}
+              </div>
             </div>
             <!-- END OF THE PROJECT CARD HEADER -->
             {% if project.image %}
@@ -156,131 +159,117 @@
               />
             </div>
             {% endif %}
-            <div class="ml-3 p-0">
-              <hr />
-              <div>
-                <form
-                  action="{% url 'like_post_profile' project.pk %}"
-                  method="post"
-                >
-                  {% csrf_token %} {% if project not in liked_project %}
-                  <button
-                    class="fa fa-thumbs-up fa-2x border-0 bg-white float-left"
-                    aria-hidden="true"
-                    type="submit"
-                    name="project_id"
-                    value="{{project.id}}"
-                  ></button>
-                  {% else %}
-                  <button
-                    class="fa fa-thumbs-up fa-2x border-0 bg-white float-left"
-                    style="color: blue"
-                    aria-hidden="true"
-                    type="submit"
-                    name="project_id"
-                    value="{{project.id}}"
-                  ></button>
-                  {% endif %}
-                </form>
-                <i
-                  class="fa fa-comment fa-2x pl-2"
-                  style="color: blue"
+            <p class="pl-3">
+              <strong>{{project.project_name}}</strong><br /><span
+                >{{project.short_description}}</span
+              >
+            </p>
+            <div class="card-footer" style="display: inherit">
+              <form action="{% url 'like_post_profile' project.pk %}" method="post">
+                {% csrf_token %} {% if project not in liked_project %}
+                <button
+                  class="fa fa-thumbs-up border-0"
+                  style="background: none"
+                  type="submit"
+                  name="project_id"
+                  value="{{project.id}}"
+                ></button>
+                <a class="card-link">{{project.likes.count}} Like</a>
+                {% else %}
+                <button
+                  class="fa fa-thumbs-up border-0"
+                  style="color: blue; background: none"
                   aria-hidden="true"
-                ></i>
-                <i
-                  class="fa fa-share fa-2x pl-2"
-                  style="color: blue"
-                  aria-hidden="true"
-                ></i>
-                <br />
-                <small>likes {{project.likes.count}} comments {{comment.project | is_upper:project.id}} </small>
-                <p>
-                  <strong>{{project.project_name}}</strong><br /><span
-                    >{{project.short_description}}</span
-                  >
-                </p>
-              </div>
+                  type="submit"
+                  name="project_id"
+                  value="{{project.id}}"
+                ></button>
+                <a class="card-link">{{project.likes.count}} Like</a>
+                {% endif %}
+              </form>
+              <pre>   </pre>
+              <a href="#demo" class="card-link" data-bs-toggle="collapse"
+                ><i class="fa fa-comment"></i> {{commen}} Comment</a
+              >
+              <a href="#" class="card-link"
+                ><i class="fa fa-mail-forward"></i> Share</a
+              >
             </div>
             <!-- PROJECT CARD FOOTER -->
-            <div class="card-footer" style="background-color: white">
-              <div class="comment-box-wrapper">
-                {% for comment in project.comments.all %} 
-                {% if project.project_name == comment.project.project_name %}
-                <div class="comment-box mb-2">
-                  <img
-                    src="{{comment.user.extendeduser.image.url}}"
-                    class="commenter-image"
-                    alt="Image"
-                  />
-                  <div class="comment-content" style="width: 100%">
-                    <div class="commenter-head">
-                      <span class="commenter-name"
-                        ><a href="" class="font-weight-bold"
-                          >{{comment.user.first_name}}</a
-                        ></span
-                      >
-                      <span class="comment-date"
-                        ><i class="far fa-clock"></i
-                      ></span>
-                    </div>
-                    <div class="comment-body">
-                      <span class="comment">{{comment.comments}}</span>
-                    </div>
-                    <div class="comment-footer">
-                      <span class="comment-reply"
-                        ><a
-                          href="#"
-                          class="comment-action font-weight-bold"
-                          style="float: right; font-size: 12px; padding: 6px"
-                          >Reply</a
-                        ></span
-                      >
-                      {% if comment.user.username == extradetails.user.username %}
-                      <span
-                        class="badge badge-danger"
-                        style="float: right; font-size: 12px; padding: 6px"
-                        >Delete</span
-                      >
-                      {% endif %}
-                    </div>
-                  </div>
-                </div>
-                {% endif %} {% endfor %}
+            <div
+            class="card-footer collapse"
+            id="demo"
+            style="background-color: white"
+          >
+            <!-- PROJECT COMMENT IMAGE ->PROJECT COMMENT TEXT -->
+    
+            <div class="comment_img">
+              {% for comment in project.comments.all %} 
+              {% if project.project_name == comment.project.project_name %}
+              <a href="#">
+                <img
+                  src="{{comment.user.extendeduser.image.url}}"
+                  alt="No Image"
+                  style="width: 37px; height: 37px; border-radius: 50%"
+                />
+              </a>
+    
+              <!-- PROJECT COMMENT TEXT -->
+              <div class="comment_text">
+                <a href="#">{{comment.user.first_name}}</a>
+                <span class="mb-4">{{comment.comments}}</span>
+                &nbsp; &nbsp;
               </div>
-              <hr />
-              <!-- PROJECT COMMENT ->COMMENT BOX -->
+              <!-- END OF THE COMMENT TEXT -->
+              &nbsp; &nbsp; 
+              {% if comment.user.username == user.username %}
+              <button
+                type="button"
+                style="text-decoration: none"
+                class="btn btn-link"
+              >
+                delete
+              </button>
+              {% endif %} 
+              {% endif %} 
+              {%endfor%}
+            </div>
+            <!-- END OF THE PROJECT COMMENT IMAGE <- PROJECT COMMENT TEXT -->
+            <hr />
+            <!-- PROJECT COMMENT ->COMMENT BOX -->
+            <div class="comment">
               <!-- COMMENT BOX -->
-              <div class="row">
-                <hr />
-                <div class="col-1">
+              <div class="comment-box">
+                <div class="input">
                   <img
                     src="{{extradetails.image.url}}"
-                    class="commenter-image"
-                    alt="commenter_image"
+                    style="width: 37px; height: 37px; border-radius: 50%"
                   />
-                </div>
-                <div class="col-11">
-                                  <form method="post" >
-
-                  {% comment %} <form method="post" action="{% url 'comment_project' project.pk %}"> {% endcomment %}
+                  <form method="post" action="" style="display: inline">
                     {% csrf_token %}
-                    <textarea
-                      class="comment-area"
+                    <input
+                      type="text"
+                      class="input-text"
                       name="user_comment"
-                      placeholder="Write your comment here"
-                    ></textarea>
+                      style="display: inline-block"
+                      placeholder="Add a comment here"
+                    />
                     <button
                       type="submit"
-                      class="btn comment-btn"
+                      class="btn btn-primary"
                       name="project_id"
                       value="{{project.id}}"
+                      style="border-radius: 18px"
                     >
-                      Post
+                      Comment
                     </button>
                   </form>
                 </div>
               </div>
+              <!-- END OF THE COMMENT BOX -->
             </div>
+            <!-- END OF THE PROJECT COMMENT <- COMMENT BOX -->
+          </div>
             <!-- END OF THE COMMENT BOX -->
             <!-- END OF THE PROJECT COMMENT <- COMMENT BOX -->
           </div>
