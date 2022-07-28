@@ -1,4 +1,4 @@
-.comments-section {
+/* .comments-section {
   background: #fff;
 }
 .comment-area {
@@ -153,4 +153,52 @@
   width: 80%;
   padding: 20px;
   text-align: center;
+} */
+
+
+
+
+.gedf-wrapper {
+  margin-top: 0.97rem;
 }
+
+@media (min-width: 992px) {
+  .gedf-main {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+  .gedf-card {
+    margin-bottom: 2.77rem;
+  }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+  content: none;
+  display: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+
+/* ----------------- */
+.comment_text{
+  display: inline-block;
+  box-sizing: border-box;
+  color: #1c1e21;
+  background-color: #f2f3f5;
+  border-radius: 18px;
+  padding:8px 10px;
+ }
+ 
+ .comment .comment-box .input-text{
+  border-radius: 23px;
+  width: 72%;
+  outline-style: none;
+  padding: 6px 15px;
+  margin-left: 1px;
+  border: 1px solid lightgrey;
+ }
+ 
