@@ -32,3 +32,6 @@ def categorypage(request,pk):
         'extra':extra
     }
     return render(request,'homePage/category.html',context)
+
+def aboutuspage(request):
+    return render(request, 'homePage/aboutUs.html')

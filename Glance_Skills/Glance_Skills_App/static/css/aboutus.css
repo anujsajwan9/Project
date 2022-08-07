@@ -1,0 +1,17 @@
+.about-section .about-us-title {
+  font-weight: 700;
+  font-size: 2.1rem;
+}
+
+.about-section .line-break {
+  border: 3px solid black;
+}
+
+.about-us-content {
+-webkit-box-shadow: 2px 4px 9px -1px rgba(0,0,0,0.75);
+  padding: 30px;
+  word-spacing: 4px;
+  line-height: 1.5;
+  font-size: 2rem;
+  font-weight: 600;
+}

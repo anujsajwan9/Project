@@ -16,4 +16,5 @@ urlpatterns = [
     path('createProject/',views.Create_Project,name='createproject'),
     path('myprofile/',views.MyProfile.as_view(),name='myprofile'),
     path('editprofile/',views.EditMyProfile.as_view(),name='editprofile'),
+    path('aboutus/',views.aboutuspage,name='aboutus'),
 ]
