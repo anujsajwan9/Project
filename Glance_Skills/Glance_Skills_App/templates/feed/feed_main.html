@@ -1,11 +1,9 @@
-{% extends 'feed/feed.html' %} {% load static %} 
-{% load custom_tags %} 
-{% block feed %}
+{% extends 'feed/feed.html' %} {% load static %} {% load social_share %} 
+{% load custom_tags %} {% block feed %}
 
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 <link rel="stylesheet" href="{% static 'css/comment.css' %}" />
 <script src="{% static 'js/events.js' %}"></script>
-
 
 <div class="row">
   <div class="col-9 p-0">
@@ -33,9 +31,12 @@
               />
             </div>
             <div class="mt-2">
-              <div class="h-2 font-weight-bold ms-2" style="color: blue;">&nbsp;&nbsp;{{project.user.username}}</div>
-              <div class="text-muted h7 mb-2 ms-2">&nbsp;
-                <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{project.created_by | timesince}}
+              <a href="/profile_show/{{project.user.id}}/" class="h-2 font-weight-bold ms-2 text-decoration-none" style="color: blue">
+                &nbsp;&nbsp;{{project.user.username|title}}
+              </a>
+              <div class="text-muted h7 mb-2 ms-2">
+                &nbsp;
+                <i class="fa fa-clock-o"></i>&nbsp;&nbsp; {{project.created_by | timesince}}
               </div>
             </div>
           </div>
@@ -76,14 +77,81 @@
           <a class="card-link">{{project.likes.count}} Like</a>
           {% endif %}
         </form>
-        <pre>   </pre>
+        &nbsp;&nbsp;&nbsp;
         <a href="#demo" class="card-link" data-bs-toggle="collapse"
           ><i class="fa fa-comment"></i> {{commen}} Comment</a
         >
-        <a href="#" class="card-link"
+        <a
+          href="#"
+          class="card-link"
+          data-toggle="modal"
+          data-target="#exampleModal"
           ><i class="fa fa-mail-forward"></i> Share</a
         >
+        <!---------------------------- Share Popup ---------------------------------------->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Share Via</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <ul>
+                  <li>
+                    {% post_to_whatsapp object_or_url "Share via WhatsApp" %}
+                  </li>
+                  <li>{% post_to_linkedin object_or_url %}</li>
+                  <li>
+                    {% send_email object.title "New Post: {{object.title}}. Check it out!" object_or_url "Share via email" %}
+                  </li>
+                  <li>
+                    {% post_to_facebook object_or_url "Post to Facebook!" %}
+                  </li>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-------------------------------- End Popup -------------------------------------->
       </div>
+      <!-- ---------------------------------------------------------------------------------------------------- -->
+      <!-- PROJECT DESCRIPTION BODY -->
+      <div class="card-body">
+        <!--PROJECT TITLE-->
+        <h4 class="card-title">
+          <a href="{% url 'showProject' pk=project.id %}" class="text-decoration-none" style="color: #212529;"> <strong>{{project.project_name|title}}</strong></a>
+        </h4>
+        <!-- END OF THE PROJECT TITLE -->
+        <!-- PROJECT DESCRIPTOIN -->
+        <p class="dark-grey-text">{{project.short_description}}</p>
+      </div>
+      <!--END OF THE DESCRIPTION BODY-->
+      <!-- ----------------------------------------------------------------------------------- -->
+
       <!-- PROJECT CARD FOOTER -->
       <div
         class="card-footer collapse"
@@ -105,12 +173,13 @@
 
           <!-- PROJECT COMMENT TEXT -->
           <div class="comment_text mb-2">
-            <a href="#">{{comment.user.first_name}}</a>
+            <a href="#" class="text-decoration-none"
+              >{{comment.user.first_name}}</a
+            >
             <span class="mb-4">{{comment.comments}}</span>
           </div>
           <!-- END OF THE COMMENT TEXT -->
-          &nbsp; &nbsp; 
-          {% if comment.user.username == user.username %}
+          &nbsp; &nbsp; {% if comment.user.username == user.username %}
           <button
             type="button"
             style="text-decoration: none"
@@ -118,10 +187,9 @@
           >
             delete
           </button>
-          {% endif %} 
-          <br>
-          {% endif %} 
-          {%endfor%}
+          {% endif %}
+          <br />
+          {% endif %} {%endfor%}
         </div>
         <!-- END OF THE PROJECT COMMENT IMAGE <- PROJECT COMMENT TEXT -->
         <hr />
@@ -160,6 +228,7 @@
         <!-- END OF THE PROJECT COMMENT <- COMMENT BOX -->
       </div>
       <!-- END OF THE PROJECT CARD FOOTER -->
+
       <!-- End Post-->
     </div>
     <!--  -->
@@ -181,7 +250,12 @@
       "
       class="image-grid-cover"
     >
-      <a href="/categoryPage/{{category.id}}/" class="cover-wrapper" style="top: 125px">{{category.name}}</a>
+      <a
+        href="/categoryPage/{{category.id}}/"
+        class="cover-wrapper"
+        style="top: 125px"
+        >{{category.name}}</a
+      >
     </div>
     {% endfor %}
   </div>

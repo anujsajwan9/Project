@@ -1,0 +1,47 @@
+.p_item{
+
+    margin-bottom: 50px;
+    margin-top: 10px;
+  }
+  
+ .p_item .img_item img{
+   
+   border-radius: 10px;
+   width: 340px;
+   height: 300px;
+   object-fit: cover;
+
+
+}
+
+.p_item .short_desc h4{
+  text-align: center;
+
+}
+
+.p_item .short_desc p{
+ text-align: center; 
+}
+.project-edit-container{
+  margin: 50px;
+  padding: 30px;
+  border-radius: 10px;
+  font-size:1.3rem;  
+ }
+
+ .project-edit-container .button{
+  width: 267px;
+  background: black;
+  border-radius: 30px;
+ } 
+
+ .project-edit-container select { 
+  text-align-last:center; 
+  border: 2px solid black !important;
+  width: 400px; 
+ }
+ 
+ .project-edit-container label{
+   color: #888;
+   font-weight: bold;
+ } 

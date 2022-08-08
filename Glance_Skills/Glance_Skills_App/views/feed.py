@@ -110,3 +110,4 @@ class EditMyProfile(View):
             return redirect('editprofile')
         context = {'form': form,'forms':forms, 'extra':profile_model}          
         return render(request,'feed/feed_editmyprofile.html',context)    
+

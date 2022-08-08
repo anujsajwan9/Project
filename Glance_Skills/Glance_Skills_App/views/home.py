@@ -33,5 +33,15 @@ def categorypage(request,pk):
     }
     return render(request,'homePage/category.html',context)
 
+def show_profile(request,pk):
+    user = User.objects.get(id=pk)
+    extra = extendeduser.objects.get(user=user)
+    project = Project.objects.filter(user=user)
+    context = {
+        'project':project,
+        'extra':extra
+    }
+    return render(request,'feed/profileShow.html',context)
+
 def aboutuspage(request):
     return render(request, 'homePage/aboutUs.html')

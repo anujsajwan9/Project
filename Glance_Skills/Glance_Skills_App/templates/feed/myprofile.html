@@ -1,4 +1,5 @@
-{% extends 'base.html' %}{% load static %}{% load custom_tags %}  {% block content %}
+{% extends 'base.html' %}{% load static %}{% load custom_tags %} 
+{% load social_share %} {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/comment.css' %}" />
 <!-- PROFILE HEADER -->
@@ -17,13 +18,7 @@
       <!-- PROFILE HEADER COLUMN (total project) -->
       <div class="col-3 p-2">
         <div
-          class="
-            total-projects
-            text-center
-            card card-body
-            text-uppercase
-            shadow
-          "
+          class="total-projects text-center card card-body text-uppercase shadow"
         >
           <h3 class="my-auto">Total Project : {{project_counts}}</h3>
         </div>
@@ -120,15 +115,13 @@
           >
             <!-- PROJECT CARD HEADER -->
             <div class="card-header p-header">
-              <a href="#" role="button">
                 <img
                   src="{{extradetails.image.url}}"
                   class="rounded-circle"
                   width="50"
                   height="50"
                 />
-                <span class="font-weight-bold p_u_name">{{user.username}}</span>
-              </a>
+                <span class="font-weight-bold p_u_name text-primary">{{user.username}}</span>
               <span>
                 <a
                   role="button"
@@ -140,11 +133,12 @@
                 <a
                   role="button"
                   class="btn btn-primary float-right mr-3"
-                  href="{% url 'editprofile' %}"
+                  href="{% url 'editproject' pk=project.id %}"
                   >Edit</a
                 >
               </span>
-              <div class="text-muted ms-4">&nbsp;
+              <div class="text-muted ms-4">
+                &nbsp;
                 <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{project.created_by | timesince}}
               </div>
             </div>
@@ -165,7 +159,10 @@
               >
             </p>
             <div class="card-footer" style="display: inherit">
-              <form action="{% url 'like_post_profile' project.pk %}" method="post">
+              <form
+                action="{% url 'like_post_profile' project.pk %}"
+                method="post"
+              >
                 {% csrf_token %} {% if project not in liked_project %}
                 <button
                   class="fa fa-thumbs-up border-0"
@@ -187,90 +184,158 @@
                 <a class="card-link">{{project.likes.count}} Like</a>
                 {% endif %}
               </form>
-              <pre>   </pre>
+              &nbsp;&nbsp;&nbsp;
               <a href="#demo" class="card-link" data-bs-toggle="collapse"
                 ><i class="fa fa-comment"></i> {{commen}} Comment</a
               >
-              <a href="#" class="card-link"
+              <a
+                href="#"
+                class="card-link"
+                data-toggle="modal"
+                data-target="#exampleModal"
                 ><i class="fa fa-mail-forward"></i> Share</a
               >
-            </div>
-            <!-- PROJECT CARD FOOTER -->
-            <div
-            class="card-footer collapse"
-            id="demo"
-            style="background-color: white"
-          >
-            <!-- PROJECT COMMENT IMAGE ->PROJECT COMMENT TEXT -->
-    
-            <div class="comment_img">
-              {% for comment in project.comments.all %} 
-              {% if project.project_name == comment.project.project_name %}
-              <a href="#">
-                <img
-                  src="{{comment.user.extendeduser.image.url}}"
-                  alt="No Image"
-                  style="width: 37px; height: 37px; border-radius: 50%"
-                />
-              </a>
-    
-              <!-- PROJECT COMMENT TEXT -->
-              <div class="comment_text mb-2">
-                <a href="#">{{comment.user.first_name}}</a>
-                <span class="mb-4">{{comment.comments}}</span>
-                &nbsp; &nbsp;
-              </div>
-              <!-- END OF THE COMMENT TEXT -->
-              &nbsp; &nbsp; 
-              {% if comment.user.username == user.username %}
-              <button
-                type="button"
-                style="text-decoration: none"
-                class="btn btn-link"
+              <!---------------------------- Share Popup ---------------------------------------->
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
               >
-                delete
-              </button>
-              {% endif %} 
-              <br>
-              {% endif %} 
-              {%endfor%}
-            </div>
-            <!-- END OF THE PROJECT COMMENT IMAGE <- PROJECT COMMENT TEXT -->
-            <hr />
-            <!-- PROJECT COMMENT ->COMMENT BOX -->
-            <div class="comment">
-              <!-- COMMENT BOX -->
-              <div class="comment-box">
-                <div class="input">
-                  <img
-                    src="{{extradetails.image.url}}"
-                    style="width: 37px; height: 37px; border-radius: 50%"
-                  />
-                  <form method="post" action="" style="display: inline">
-                    {% csrf_token %}
-                    <input
-                      type="text"
-                      class="input-text"
-                      name="user_comment"
-                      style="display: inline-block"
-                      placeholder="Add a comment here"
-                    />
-                    <button
-                      type="submit"
-                      class="btn btn-primary"
-                      name="project_id"
-                      value="{{project.id}}"
-                      style="border-radius: 18px"
-                    >
-                      Comment
-                    </button>
-                  </form>
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Share Via
+                      </h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <ul>
+                        <li>
+                          {% post_to_whatsapp object_or_url "Share via WhatsApp" %}
+                        </li>
+                        <li>{% post_to_linkedin object_or_url %}</li>
+                        <li>
+                          {% send_email object.title "New Post:
+                          {{object.title}}. Check it out!" object_or_url "Share via email" %}
+                        </li>
+                        <li>
+                          {% post_to_facebook object_or_url "Post to Facebook!" %}
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- END OF THE COMMENT BOX -->
             </div>
-            <!-- END OF THE PROJECT COMMENT <- COMMENT BOX -->
-          </div>
+            <!-- ---------------------------------------------------------------------------------------------------- -->
+            <!-- PROJECT DESCRIPTION BODY -->
+            <div class="card-body">
+              <!--PROJECT TITLE-->
+              <h4 class="card-title">
+                <strong>{{project.project_name|title}}</strong>
+              </h4>
+              <!-- END OF THE PROJECT TITLE -->
+              <!-- PROJECT DESCRIPTOIN -->
+              <p class="dark-grey-text">{{project.short_description}}</p>
+            </div>
+            <!--END OF THE DESCRIPTION BODY-->
+            <!-- ----------------------------------------------------------------------------------- -->
+            <!-- PROJECT CARD FOOTER -->
+            <div
+              class="card-footer collapse"
+              id="demo"
+              style="background-color: white"
+            >
+              <!-- PROJECT COMMENT IMAGE ->PROJECT COMMENT TEXT -->
+
+              <div class="comment_img">
+                {% for comment in project.comments.all %} 
+                {% if project.project_name == comment.project.project_name %}
+                <a href="#">
+                  <img
+                    src="{{comment.user.extendeduser.image.url}}"
+                    alt="No Image"
+                    style="width: 37px; height: 37px; border-radius: 50%"
+                  />
+                </a>
+
+                <!-- PROJECT COMMENT TEXT -->
+                <div class="comment_text mb-2">
+                  <a href="#" class="text-decoration-none"
+                    >{{comment.user.first_name}}</a
+                  >
+                  <span class="mb-4">{{comment.comments}}</span>
+                  &nbsp; &nbsp;
+                </div>
+                <!-- END OF THE COMMENT TEXT -->
+                &nbsp; &nbsp; {% if comment.user.username == user.username %}
+                <button
+                  type="button"
+                  style="text-decoration: none"
+                  class="btn btn-link"
+                >
+                  delete
+                </button>
+                {% endif %}
+                <br />
+                {% endif %} {%endfor%}
+              </div>
+              <!-- END OF THE PROJECT COMMENT IMAGE <- PROJECT COMMENT TEXT -->
+              <hr />
+              <!-- PROJECT COMMENT ->COMMENT BOX -->
+              <div class="comment">
+                <!-- COMMENT BOX -->
+                <div class="comment-box">
+                  <div class="input">
+                    <img
+                      src="{{extradetails.image.url}}"
+                      style="width: 37px; height: 37px; border-radius: 50%"
+                    />
+                    <form method="post" action="" style="display: inline">
+                      {% csrf_token %}
+                      <input
+                        type="text"
+                        class="input-text"
+                        name="user_comment"
+                        style="display: inline-block"
+                        placeholder="Add a comment here"
+                      />
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        name="project_id"
+                        value="{{project.id}}"
+                        style="border-radius: 18px"
+                      >
+                        Comment
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <!-- END OF THE COMMENT BOX -->
+              </div>
+              <!-- END OF THE PROJECT COMMENT <- COMMENT BOX -->
+            </div>
             <!-- END OF THE COMMENT BOX -->
             <!-- END OF THE PROJECT COMMENT <- COMMENT BOX -->
           </div>
