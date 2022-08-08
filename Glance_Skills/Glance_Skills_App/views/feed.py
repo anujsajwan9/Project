@@ -22,14 +22,12 @@ class FeedPage(View):
         project = Project.objects.all().exclude(user=user)
         categories =  ProjectCategory.objects.all()
         liked_project = Project.objects.filter(likes=request.user)
-        # reply =  Project_CommentsReply.objects.filter(comment = )
-        
         context = {
             'projects':project,
             'user':user,
             'extra':extradetail_user,
             'liked_project':liked_project,
-            'categories':categories
+            'categories':categories,
             
         }
         return render(request,'feed/feed_main.html',context)

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %}{% load custom_tags %} {% block content %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}" />
 
 <!-- HERO SECTION -->
@@ -142,7 +142,7 @@
             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
             <span>{{project.likes.count}}</span>
             <i class="fa fa-comments" aria-hidden="true"></i>
-            <span>6</span>
+            <span>{{project|is_upper:project.id}}</span>
           </div>
           <!-- END OF THE PROJECT LIKE,COMMENT -->
         </div>
