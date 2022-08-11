@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from Glance_Skills_App.models.auth import User
 from django.views.generic import View
+from django.http.response import HttpResponseRedirect
 from Glance_Skills_App.models import Project
 from Glance_Skills_App.forms import ProjectForm
 
@@ -32,8 +33,9 @@ class EditMyProject(View):
         }
         return render(request,'project/edit_project.html',context)
     
-    def post(self,request):                
-        return render(request,'project/edit_project.html')    
+    def post(self,request,pk):
+        Project.objects.filter(pk=pk).update(project_name=request.POST['projectName'],description=request.POST['description'],short_description=request.POST['short_desc'],external_link=request.POST['external_link'])
+        return HttpResponseRedirect('/myprofile')
 
 
   

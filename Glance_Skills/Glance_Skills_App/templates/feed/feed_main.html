@@ -79,7 +79,7 @@
         </form>
         &nbsp;&nbsp;&nbsp;
         <a href="#demo" class="card-link" data-bs-toggle="collapse"
-          ><i class="fa fa-comment"></i> {{project|is_upper:project.id}} Comment</a
+          ><i class="fa fa-comment"></i> {{project|comment_count:project.id}} Comment</a
         >
         <a
           href="#"
@@ -179,14 +179,21 @@
             <span class="mb-4">{{comment.comments}}</span>
           </div>
           <!-- END OF THE COMMENT TEXT -->
-          &nbsp; &nbsp; {% if comment.user.username == user.username %}
-          <button
-            type="button"
-            style="text-decoration: none"
-            class="btn btn-link"
-          >
-            delete
-          </button>
+          &nbsp; &nbsp; 
+          {% if comment.user.username == user.username %}
+          <form action="{% url 'deleteComments' comment.pk %}" method="post" style="display: inline">
+            {% csrf_token %}
+            <button
+              type="submit"
+              style="text-decoration: none"
+              class="btn btn-link"
+              onclick="return confirm('Are you really want to delete')"
+              name="comment_id"
+              value="{{comment.id}}"
+            >
+              delete
+            </button>
+            </form>
           {% endif %}
           <br />
           {% endif %} {%endfor%}
@@ -210,6 +217,7 @@
                   name="user_comment"
                   style="display: inline-block"
                   placeholder="Add a comment here"
+                  required
                 />
                 <button
                   type="submit"

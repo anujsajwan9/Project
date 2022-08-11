@@ -15,7 +15,6 @@ from django.contrib.auth.models import User
 from Glance_Skills_App.models import Project,extendeduser
 
 class FeedPage(View):
-
     def get(self,request):
         user = User.objects.get(username=request.user)
         extradetail_user = extendeduser.objects.get(user=user) 
@@ -38,10 +37,13 @@ class FeedPage(View):
         a = comment_add.save()
         return HttpResponseRedirect(reverse('feed'))
 
+def Delete_feed(request,pk):
+    project = Project.objects.get(pk=pk)
+    if project.user == request.user:
+        project.delete()
+    return HttpResponseRedirect('/myprofile')
 
         # LIKE FUNCTION
-
-
 def LikeViewFunction(request,pk):
     project = get_object_or_404(Project,id=request.POST.get('project_id'))
     liked = False
@@ -60,6 +62,12 @@ def LikeView(request,pk):
 def LikeView_profile(request,pk):
     likin = LikeViewFunction(request,pk)
     return HttpResponseRedirect(reverse('myprofile'))
+
+def Delete_Comment(request,pk):
+    comment = Projects_Comment.objects.get(pk=pk)
+    if comment.user == request.user:
+        comment.delete()
+    return HttpResponseRedirect(reverse('feed'))
 
 
 class MyProfile(View):

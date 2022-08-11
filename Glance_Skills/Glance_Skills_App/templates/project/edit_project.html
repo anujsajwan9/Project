@@ -10,8 +10,9 @@
     </div>
 
     <!-- PROJECT EDIT FORM -->
-    <form action="/project/edit" method="post">
-      <input type="hidden" name="id" value="${project.getId()}" />
+    <form method="post" action="{% url 'editproject' project.id %}">
+      {% csrf_token %}
+      <input type="hidden" name="id" value="{{project.id}}" />
       <div class="form-row">
         <label for="category" class="col-3">Project Category </label>
         <input
@@ -22,7 +23,7 @@
           value="{{project.category}}"
           required
         />
-        <input type="hidden" value="${category.getId()}" name="category_id" />
+        <input type="hidden" value="{{project.category}}" name="category" />
       </div>
 
       <br />
