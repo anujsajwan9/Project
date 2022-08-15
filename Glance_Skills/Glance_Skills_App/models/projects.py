@@ -29,11 +29,20 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
+class Project_Image(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    project = models.ForeignKey(Project,related_name='images',on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/project_images/',blank=True)
+
+    def __str__(self):
+        return  str(self.project)
+
+
 
 
 class Projects_Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    project = models.ForeignKey(Project,related_name='comments',on_delete=models.CASCADE)
+    project = models.ForeignKey(Project,related_name='comment',on_delete=models.CASCADE)
     comments = models.TextField()
     created_by = models.DateTimeField(auto_created=timezone.now(),auto_now_add=True)
     updated_by = models.DateTimeField(null=True,blank=True)
@@ -43,11 +52,5 @@ class Projects_Comment(models.Model):
         return  str(self.comments)
 
 
-class Project_CommentsReply(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    comment = models.ForeignKey(Projects_Comment ,related_name="reply" ,on_delete=models.CASCADE)
-    reply = models.TextField(max_length=2000 , null =True , blank=False)
 
-    def __str__(self):
-        return  str(self.comment)
     

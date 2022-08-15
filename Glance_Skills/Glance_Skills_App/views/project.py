@@ -3,27 +3,36 @@ from django.shortcuts import get_object_or_404, redirect, render
 from Glance_Skills_App.models.auth import User
 from django.views.generic import View
 from django.http.response import HttpResponseRedirect
-from Glance_Skills_App.models import Project
-from Glance_Skills_App.forms import ProjectForm
+from Glance_Skills_App.models import Project,Project_Image
+from Glance_Skills_App.forms import ProjectImageForm
 
 def Create_Project(request):
     id = request.user.id
     user = get_object_or_404(User,id=id)
     if request.method == 'POST':
-        f = ProjectForm(request.POST, request.FILES,initial={'user':user})
+        f = ProjectImageForm(request.POST,request.FILES,initial={'user':user})
+        files = request.FILES.getlist('image')
         if f.is_valid():
             form = f.save(commit=False)
+            print(form)
             form.user = request.user
             form.save()
+            for f in files:
+                Project_Image.objects.create(project=form,user=request.user,image=f)
             messages.success(request,"Project Created Successfully")
             return redirect('createproject')
     else:
-        form = ProjectForm(initial={'user':user})
+        form = ProjectImageForm(initial={'user':user})
     return render(request, 'project/create_project.html', {'form' : form})
 
 def Show_Project(request,pk):
     project = Project.objects.get(id=pk)
-    return render(request, 'project/fullProjectDetails.html', {'project' : project})
+    project_image = Project_Image.objects.filter(project=project)
+    context = {
+        'project':project,
+        'project_image':project_image
+    }
+    return render(request, 'project/fullProjectDetails.html', context=context)
 
 class EditMyProject(View):
     def get(self,request,pk):

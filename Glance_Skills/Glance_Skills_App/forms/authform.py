@@ -20,7 +20,7 @@ class UserEditForm(ModelForm):
         model = extendeduser
         fields = ['phone_number','profession','bio','image']
         widgets={
-            'image':forms.FileInput(attrs={'class':'form-control'}),
+            'image':forms.FileInput(attrs={'class':'form-control','onclick' : "readURL(this);"}),
         }
 
 
