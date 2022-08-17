@@ -5,7 +5,7 @@
   <c:set var="user" value="${project.getUser()}" />
   <div class="container-fluid">
     <br />
-    <h1 class="text-center dark-grey-text pb-3 mt-5 pt-5 text-capitalize">
+    <h1 class="text-center dark-grey-text pb-3 pt-3 text-capitalize">
       <strong>{{project.user.first_name}}'S</strong> Project
     </h1>
     <p class="grey-text text-center mb-4 text-uppercase spacing">
@@ -104,10 +104,16 @@
                        </a>
 
                   </div>
-                  <video class="embed-responsive embed-responsive-16by9" controls="controls">
+                  <!-- Video -->
+                  <a href="#video" class="btn btn-success ml-2 mt-3" data-bs-toggle="collapse">Click For Video</a>
+                  <video id="video" class="embed-responsive embed-responsive-16by9 collapse mt-3 p-2" controls="controls">
                     <source src="{{project.video.url}}" type="video/mp4">
                   </video>
-
+                  <!-- END Video -->
+                  <div class="d-flex float-right mt-3 mr-3">
+                  <h4>Other Links:</h4>
+                  <a href="{{project.external_link}}" class="p-1">External Links</a>
+                </div>
                     <!-- END OF THE ON HOVER EFFECT -->
 
                     <!-- PROJECT LIKE,COMMENT  -->
@@ -196,13 +202,13 @@
         <!-- MAIN PROFILE COLUMN -->
         <div class="col-lg-3 col-12 mt-1">
           <!-- PROFILE CARD -->
-          <div class="card shadow-lg sticky-top mt-3">
+          <div class="card shadow-lg">
             <!-- PROFILE IMAGE  -->
             <div class="view overlay">
-              <a href="/${user.getUsername()}">
+              <a href="{{project.user.username}}">
                 <img
                   alt=""
-                  src="/Users/${user.getProfilePicture() }"
+                  src="{{extra.image.url}}"
                   style="
                     width: 100%;
                     height: 100%;
@@ -253,7 +259,7 @@
                   <h1
                     class="text-center font-weight-bold dark-grey-text mt-3 mb-3"
                   >
-                    <strong>30</strong>
+                    <strong>{{total_project}}</strong>
                   </h1>
                 </div>
                 <a

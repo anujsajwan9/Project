@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from Glance_Skills_App.models.auth import User
 from django.views.generic import View
 from django.http.response import HttpResponseRedirect
-from Glance_Skills_App.models import Project,Project_Image
+from Glance_Skills_App.models import Project,Project_Image,extendeduser
 from Glance_Skills_App.forms import ProjectImageForm
 
 def Create_Project(request):
@@ -27,10 +27,14 @@ def Create_Project(request):
 
 def Show_Project(request,pk):
     project = Project.objects.get(id=pk)
+    extra = extendeduser.objects.get(user=project.user)
     project_image = Project_Image.objects.filter(project=project)
+    total_project = Project.objects.filter(user=project.user).count()
     context = {
         'project':project,
-        'project_image':project_image
+        'project_image':project_image,
+        'extra':extra,
+        'total_project':total_project
     }
     return render(request, 'project/fullProjectDetails.html', context=context)
 
