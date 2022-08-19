@@ -1,4 +1,4 @@
 from Glance_Skills_App.views.home import homepage,get_category,categorypage,aboutuspage,show_profile
 from Glance_Skills_App.views.feed import FeedPage,MyProfile,EditMyProfile,LikeView,LikeView_profile,Delete_Comment,Delete_feed
-from Glance_Skills_App.views.auth import LoginView,RegisterView,ResetPasswordPage,LogoutView
+from Glance_Skills_App.views.auth import LoginView,RegisterView,ResetPasswordPage,LogoutView,ChangePasswordPage
 from Glance_Skills_App.views.project import Create_Project,Show_Project,EditMyProject

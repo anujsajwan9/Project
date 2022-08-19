@@ -51,6 +51,15 @@ class ResetPasswordPage(View):
     def post(self,request):
         return render(request,'auth/reset-password.html')
 
+class ChangePasswordPage(View):
+
+    def get(self,request):
+        return render(request,'auth/changePassword.html')
+
+    def post(self,request):
+        return render(request,'auth/changePassword.html')
+
+
 
 def LogoutView(request):
     logout(request)
